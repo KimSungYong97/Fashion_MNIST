@@ -1,19 +1,19 @@
 from torch.autograd import Variable
 import torch
-def train(num_epochs,train_loader,test_loader,model,error,optimizer,device):
+def train(num_epochs,train_loader,test_loader,model,error,optimizer,scheduler,device):
     count = 0
-    # Lists for visualization of loss and accuracy
+    # loss and accuracy
     loss_list = []
     iteration_list = []
     accuracy_list = []
 
-    # Lists for knowing classwise accuracy
+    #  classwise accuracy
     predictions_list = []
     labels_list = []
 
     for epoch in range(num_epochs):
         for images, labels in train_loader:
-            # Transfering images and labels to GPU if available
+
             images, labels = images.to(device), labels.to(device)
 
             train = Variable(images.view(100, 1, 28, 28))
@@ -24,7 +24,10 @@ def train(num_epochs,train_loader,test_loader,model,error,optimizer,device):
             outputs = model(train)
             loss = error(outputs, labels)
 
-            # Initializing a gradient as 0 so there is no mixing of gradient among the batches
+            #Add Scheduler
+            scheduler.step()
+
+            # Initializing a gradient as 0
             optimizer.zero_grad()
 
             # Propagating the error backward
@@ -37,7 +40,7 @@ def train(num_epochs,train_loader,test_loader,model,error,optimizer,device):
 
             # Testing the model
 
-            if not (count % 50):  # It's same as "if count % 50 == 0"
+            if not (count % 50):
                 total = 0
                 correct = 0
 

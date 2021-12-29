@@ -4,10 +4,12 @@ class FashionCNN(nn.Module):
     def __init__(self):
         super(FashionCNN, self).__init__()
 
+
         self.layer1 = nn.Sequential(
             nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),
             nn.BatchNorm2d(32),
             nn.ReLU(),
+            #nn.Dropout2d(0.2), #Add Dropout
             nn.MaxPool2d(kernel_size=2, stride=2)
         )
 
@@ -15,6 +17,7 @@ class FashionCNN(nn.Module):
             nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3),
             nn.BatchNorm2d(64),
             nn.ReLU(),
+            #nn.Dropout2d(0.2),
             nn.MaxPool2d(2)
         )
 
@@ -23,6 +26,7 @@ class FashionCNN(nn.Module):
         self.fc2 = nn.Linear(in_features=600, out_features=120)
         self.fc3 = nn.Linear(in_features=120, out_features=10)
 
+        self.initialize_weights() #Add Weight Initialize
     '''in_channels(int): input image의 channel수 . rgb 이미지라면 3 .
 
     out_channels(int): convolution에 의해서 생성된 channel의 수
@@ -33,11 +37,30 @@ class FashionCNN(nn.Module):
 
     padding(int or tuple): zero padding을 input의 양쪽에 인자 만큼 해준다.Default는 0 이라서 기본적으로 설정해주지 않으면 zero padding은 하지 않음.'''
 
+
+
+
+    def initialize_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_uniform_(m.weight)
+
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+
+            elif isinstance(m, nn.Linear):
+                nn.init.kaiming_uniform_(m.weight)
+                nn.init.constant_(m.bias, 0)
+
+
     def forward(self, x):
         out = self.layer1(x)
         out = self.layer2(out)
         out.view(-1, 64*6*6)
-        out = out.view(out.size(0), -1)#16,(64*6*6)
+        out = out.view(out.size(0), -1) 
         out = self.fc1(out)
         out = self.drop(out)
         out = self.fc2(out)

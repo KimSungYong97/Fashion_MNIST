@@ -11,11 +11,10 @@ class FashionDataset(Dataset):
         image = []
 
         for i in self.fashion_MNIST:
-            # first column is of labels.
             label.append(i[0])
             image.append(i[1:])
         self.labels = np.asarray(label)
-        # Dimension of Images = 28 * 28 * 1.
+        # Dim = 28 * 28 * 1.
         # height , width , color_channels .
         self.images = np.asarray(image).reshape(-1, 28, 28, 1).astype('float32')
 
