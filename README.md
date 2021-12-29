@@ -6,9 +6,9 @@ Fashion MNIST 는 Classification Task고, 위암 T병기 예측은 Segmentation 
 
 # Result
 
-![Accuracy](https://user-images.githubusercontent.com/29745280/147642209-8e11540e-6b57-4c89-b8f9-798940b3681b.png)
+![Accuracy](https://user-images.githubusercontent.com/29745280/147676168-2c635a23-5e0c-4114-a2c6-ced8e5a32f69.png)
 
-![Loss](https://user-images.githubusercontent.com/29745280/147642213-c4d7ca31-1eeb-4317-85f1-dfade041214b.png)
+![Loss](https://user-images.githubusercontent.com/29745280/147676162-e158fa1c-1d2e-4694-9371-4d2e851c8446.png)
 
 | Class | Accuracy |  precision | recall | f1-score |
 |---|---|---|---|---|
