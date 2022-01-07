@@ -2,7 +2,7 @@
 
 회사에서 위암 T병기 예측을 위해 CNN을 돌릴 필요가 있었는데 그 전에 CNN에 대해 실습해보고자 했던 Fashion MNIST 코드다.
 
-Fashion MNIST 는 Classification Task고, 위암 T병기 예측은 Segmentation Task 기 때문에 dhks전히 같다고 할 수 는 없지만, 연습용 코드를 한줄한줄 짜고 이해한 덕에 수월한 프로젝트 완수를 할 수 있었다. 
+Fashion MNIST 는 Classification Task고, 위암 T병기 예측은 Segmentation Task 기 때문에 완전히 같다고 할 수 는 없지만, 연습용 코드를 한줄한줄 짜고 이해한 덕에 수월한 프로젝트 완수를 할 수 있었다. 
 
 # Result
 
